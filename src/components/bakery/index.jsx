@@ -3,17 +3,20 @@ import { useEffect, useContext } from 'react';
 import * as THREE from 'three';
 import TouchSistem from '../touchSistem';
 import { Context } from '../context/context';
+import Smoke from '../smoke/Smoke';
 
 // https://gltf.report/
 
 export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
-  const { nodes } = useGLTF('./gltf/casaUnifyMesh.glb');
+  const { nodes } = useGLTF('./gltf/casaUnifyMeshv1.glb');
   const bake1 = useTexture('./bake/bake1.jpg');
   const bake2 = useTexture('./bake/bake2.jpg');
   const bake3 = useTexture('./bake/bake3.jpg');
   const normalMap1 = useTexture('./bake/normal/normalBake1.png');
   const normalMap2 = useTexture('./bake/normal/normalBake2.png');
   const normalMap3 = useTexture('./bake/normal/normalBake3.png');
+
+  console.log('...........', nodes);
 
   [bake1, bake2, bake3, normalMap1, normalMap2, normalMap3].forEach(bake => {
     bake.flipY = false;
@@ -150,6 +153,7 @@ export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
         receiveShadow
         material={glassMaterial}
       ></mesh>
+      <Smoke position={nodes.SmokeSpawn.position} />
       {/* <Outlines thickness={1} color="black" /> */}
     </>
   );
