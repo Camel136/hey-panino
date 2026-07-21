@@ -1,0 +1,66 @@
+body,
+html,
+#root {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas-container {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.canvas-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.modal-open-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 15;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-open-button:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.footer {
+  width: 100%;
+  background: #1d1d1d;
+  color: white;
+  flex: 0;
+  min-height: 70px;
+  padding: 10px 0;
+}
+
+.header {
+  background: #1e1e1e;
+  color: white;
+}

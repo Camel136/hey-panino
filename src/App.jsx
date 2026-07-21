@@ -1,0 +1,86 @@
+import './App.css';
+import { Canvas } from '@react-three/fiber';
+import Bakery from './components/bakery';
+// import { Perf } from 'r3f-perf';
+import PointerLockControlsCustom from './components/controls';
+import { useState, useContext } from 'react';
+import TouchSistem from './components/touchSistem';
+import * as THREE from 'three';
+import Target from './components/target';
+import { Context } from './components/context/context';
+
+import Modal from './components/modal';
+
+// npm run lint -- --fix
+
+function App() {
+  // //castShadow e receiveshadow (fazer ou receber sombra)
+  const ANGLE = {
+    DEG_30: Math.PI / 6,
+    DEG_45: Math.PI / 4,
+    DEG_60: Math.PI / 3,
+    DEG_90: Math.PI / 2,
+    DEG_75: Math.PI / 2.4,
+    DEG_180: Math.PI,
+  };
+
+  // 180/ deg = graus
+
+  const [insideOfTent, setInsideOfTent] = useState(false);
+  const [cameraSpawn, setCameraSpawn] = useState(null);
+  const [peopleViewCam, setPeopleViewCam] = useState(null);
+
+  const { modalOpen, setModalOpen } = useContext(Context);
+  if (modalOpen) {
+    document.exitPointerLock();
+  }
+
+  let init = false;
+
+  if (cameraSpawn !== null) {
+    init = true;
+  }
+
+  return (
+    <div className="app">
+      <header className="section header"></header>
+      <fog attach="fog" args={['#2b2b2b', 10, 40]} />
+      <div className="section canvas-container">
+        <Canvas
+          shadows
+          dpr={[1, 2]}
+          gl={{
+            antialias: true,
+            powerPreference: 'high-performance',
+          }}
+          camera={{
+            fov: 75,
+            near: 0.1,
+            far: 1000,
+          }}
+        >
+          <>
+            <PointerLockControlsCustom
+              otherTypeCam={insideOfTent}
+              cameraSpawn={cameraSpawn}
+              peopleViewCam={peopleViewCam}
+            />
+
+            <Bakery
+              setCameraSpawn={setCameraSpawn}
+              setPeopleViewCam={setPeopleViewCam}
+            />
+          </>
+        </Canvas>
+        <Modal open={modalOpen} onClose={() => setModalOpen(false)} />
+      </div>
+      {!modalOpen && (
+        <footer className="section footer">
+          <p>{}</p>
+        </footer>
+      )}
+    </div>
+  );
+}
+
+export default App;
