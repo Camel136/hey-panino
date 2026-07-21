@@ -15,8 +15,6 @@ export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
   const normalMap2 = useTexture('./bake/normal/normalBake2.png');
   const normalMap3 = useTexture('./bake/normal/normalBake3.png');
 
-  console.log('...........', nodes);
-
   [bake1, bake2, bake3, normalMap1, normalMap2, normalMap3].forEach(bake => {
     bake.flipY = false;
     bake.colorSpace = THREE.SRGBColorSpace;
@@ -55,7 +53,7 @@ export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
     metalness: 0.05,
   });
 
-  const glassTableMaterial = new THREE.MeshPhysicalMaterial({
+  const glassMaterial = new THREE.MeshPhysicalMaterial({
     transmission: 1.0,
     transparent: true,
     roughness: 0.0,
@@ -66,6 +64,18 @@ export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
     attenuationDistance: 0.5,
     envMapIntensity: 1.5,
   });
+
+  const whiteMeshes = [
+    'caneca',
+    'baseGuardaSol',
+    'calota001',
+    'chavaso',
+    'frisoTrailer',
+    'frisoTrailer001',
+    'fundo',
+    'pontaCalota',
+  ];
+  const blackMeshes = ['line', 'chao_e_cabos', 'luminaria', 'tuboGuardasol'];
 
   return (
     <>
@@ -103,59 +113,32 @@ export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
         />
         <Outlines thickness={1} color="black" />
       </mesh>
+      {whiteMeshes.map(name => (
+        <mesh
+          key={name}
+          geometry={nodes[name].geometry}
+          material={white}
+          receiveShadow
+        />
+      ))}
+      {blackMeshes.map(name => (
+        <mesh
+          key={name}
+          geometry={nodes[name].geometry}
+          material={black}
+          receiveShadow
+        />
+      ))}
       <mesh geometry={nodes.line.geometry} material={black}></mesh>
       <mesh
         geometry={nodes.cerca.geometry}
         receiveShadow
         material={wood}
       ></mesh>
-      <mesh geometry={nodes.madeira.geometry} receiveShadow material={wood}>
-        {' '}
-      </mesh>
       <mesh
-        geometry={nodes.caneca.geometry}
+        geometry={nodes.madeira.geometry}
         receiveShadow
-        material={white}
-      ></mesh>
-      <mesh
-        geometry={nodes.baseGuardaSol.geometry}
-        receiveShadow
-        material={white}
-      ></mesh>
-      <mesh
-        geometry={nodes.calota001.geometry}
-        receiveShadow
-        material={white}
-      ></mesh>
-      <mesh
-        geometry={nodes.chao_e_cabos.geometry}
-        receiveShadow
-        material={black}
-      ></mesh>
-      <mesh
-        geometry={nodes.chavaso.geometry}
-        receiveShadow
-        material={white}
-      ></mesh>
-      <mesh
-        geometry={nodes.frisoTrailer.geometry}
-        receiveShadow
-        material={white}
-      ></mesh>
-      <mesh
-        geometry={nodes.frisoTrailer001.geometry}
-        receiveShadow
-        material={white}
-      ></mesh>
-      <mesh
-        geometry={nodes.fundo.geometry}
-        receiveShadow
-        material={white}
-      ></mesh>
-      <mesh
-        geometry={nodes.pontaCalota.geometry}
-        receiveShadow
-        material={white}
+        material={wood}
       ></mesh>
       <mesh
         geometry={nodes.lampadas.geometry}
@@ -163,19 +146,9 @@ export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
         material={LampLight}
       ></mesh>
       <mesh
-        geometry={nodes.luminaria.geometry}
-        receiveShadow
-        material={black}
-      ></mesh>
-      <mesh
-        geometry={nodes.tuboGuardasol.geometry}
-        receiveShadow
-        material={black}
-      ></mesh>
-      <mesh
         geometry={nodes.vidroLuminaria.geometry}
         receiveShadow
-        material={glassTableMaterial}
+        material={glassMaterial}
       ></mesh>
       {/* <Outlines thickness={1} color="black" /> */}
     </>
