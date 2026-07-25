@@ -42,6 +42,7 @@ function App() {
           shadows
           dpr={[1, 2]}
           gl={{
+            alpha: true,
             antialias: true,
             powerPreference: 'high-performance',
           }}

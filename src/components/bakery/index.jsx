@@ -101,7 +101,7 @@ export default function Bakery() {
     <>
       <ambientLight intensity={1.5} color={0xfcc632} />{' '}
       <directionalLight position={[5, 8, 3]} intensity={2} />
-      <color attach="background" args={['#ffe489']} />
+      {/* <color attach="background" args={['#ffe489']} /> */}
       <mesh geometry={nodes.bake1.geometry} receiveShadow>
         <meshStandardMaterial
           color="white"

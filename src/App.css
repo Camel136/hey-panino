@@ -64,3 +64,6 @@ html,
   background: #1e1e1e;
   color: white;
 }
+canvas {
+  background: linear-gradient(to bottom, #ff6f1b 5%, #ffd064 40%, #fff4d0 100%);
+}
