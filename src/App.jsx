@@ -27,7 +27,6 @@ function App() {
   // 180/ deg = graus
 
   const [insideOfTent, setInsideOfTent] = useState(false);
-  const [cameraSpawn, setCameraSpawn] = useState(null);
   const [peopleViewCam, setPeopleViewCam] = useState(null);
 
   const { modalOpen, setModalOpen } = useContext(Context);
@@ -35,16 +34,9 @@ function App() {
     document.exitPointerLock();
   }
 
-  let init = false;
-
-  if (cameraSpawn !== null) {
-    init = true;
-  }
-
   return (
     <div className="app">
       <header className="section header"></header>
-      <fog attach="fog" args={['#2b2b2b', 10, 40]} />
       <div className="section canvas-container">
         <Canvas
           shadows
@@ -60,16 +52,8 @@ function App() {
           }}
         >
           <>
-            <PointerLockControlsCustom
-              otherTypeCam={insideOfTent}
-              cameraSpawn={cameraSpawn}
-              peopleViewCam={peopleViewCam}
-            />
-
-            <Bakery
-              setCameraSpawn={setCameraSpawn}
-              setPeopleViewCam={setPeopleViewCam}
-            />
+            <PointerLockControlsCustom />
+            <Bakery />
           </>
         </Canvas>
         <Modal open={modalOpen} onClose={() => setModalOpen(false)} />

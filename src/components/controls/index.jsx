@@ -1,17 +1,16 @@
 import { PointerLockControls, OrbitControls } from '@react-three/drei';
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { useThree } from '@react-three/fiber';
 import * as THREE from 'three';
+import { Context } from '../context/context';
 
-export default function PointerLockControlsCustom({
-  otherTypeCam,
-  cameraSpawn,
-  peopleViewCam,
-}) {
-  const touchStart = useRef({ x: 0, y: 0 });
-  const euler = useRef(new THREE.Euler(0, 0, 0, 'YXZ'));
+export default function PointerLockControlsCustom({}) {
   const { camera } = useThree();
+  const { posCam } = useContext(Context);
 
+  const otherTypeCam = false;
+
+  // console.log('...........', posCam);
   const ANGLE = {
     DEG_30: Math.PI / 6,
     DEG_45: Math.PI / 4,
@@ -22,15 +21,11 @@ export default function PointerLockControlsCustom({
   };
 
   useEffect(() => {
-    if (cameraSpawn && !otherTypeCam) {
-      camera.position.copy(cameraSpawn.position);
-      camera.quaternion.copy(cameraSpawn.quaternion);
+    if (posCam.position && posCam.quaternion) {
+      camera.position.copy(posCam.position);
+      camera.quaternion.copy(posCam.quaternion);
     }
-    if (peopleViewCam && otherTypeCam) {
-      camera.position.copy(peopleViewCam.position);
-      camera.quaternion.copy(peopleViewCam.quaternion);
-    }
-  }, [cameraSpawn, peopleViewCam, otherTypeCam]);
+  }, [posCam]);
 
   if (!otherTypeCam) {
     return (

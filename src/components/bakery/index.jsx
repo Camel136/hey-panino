@@ -1,14 +1,13 @@
 import { useGLTF, useTexture, Outlines } from '@react-three/drei';
 import { useEffect, useContext } from 'react';
 import * as THREE from 'three';
-import TouchSistem from '../touchSistem';
-import { Context } from '../context/context';
 import Smoke from '../smoke/Smoke';
+import { Context } from '../context/context';
 
 // https://gltf.report/
 
-export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
-  const { nodes } = useGLTF('./gltf/casaUnifyMeshv1.glb');
+export default function Bakery() {
+  const { nodes } = useGLTF('./gltf/casaUnifyMeshv2.glb');
   const bake1 = useTexture('./bake/bake1.jpg');
   const bake2 = useTexture('./bake/bake2.jpg');
   const bake3 = useTexture('./bake/bake3.jpg');
@@ -16,7 +15,16 @@ export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
   const normalMap2 = useTexture('./bake/normal/normalBake2.png');
   const normalMap3 = useTexture('./bake/normal/normalBake3.png');
 
-  console.log('...........', nodes);
+  const { setPosCam } = useContext(Context);
+
+  useEffect(() => {
+    if (nodes.cameraSpawn) {
+      setPosCam({
+        position: nodes.cameraSpawn.position.clone(),
+        quaternion: nodes.cameraSpawn.quaternion.clone(),
+      });
+    }
+  }, [nodes]);
 
   [bake1, bake2, bake3, normalMap1, normalMap2, normalMap3].forEach(bake => {
     bake.flipY = false;
@@ -80,11 +88,20 @@ export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
   ];
   const blackMeshes = ['line', 'chao_e_cabos', 'luminaria', 'tuboGuardasol'];
 
+  const interactiveMeshes = [
+    'paov1',
+    'paov2',
+    'paov3',
+    'paov4',
+    'paov5',
+    'paov6',
+  ];
+
   return (
     <>
       <ambientLight intensity={1.5} color={0xfcc632} />{' '}
       <directionalLight position={[5, 8, 3]} intensity={2} />
-      <color attach="background" args={['#000000']} />
+      <color attach="background" args={['#ffe489']} />
       <mesh geometry={nodes.bake1.geometry} receiveShadow>
         <meshStandardMaterial
           color="white"
@@ -96,6 +113,18 @@ export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
         />
         <Outlines thickness={1} color="black" />
       </mesh>
+      {interactiveMeshes.map(name => (
+        <mesh geometry={nodes[name].geometry} receiveShadow>
+          <meshStandardMaterial
+            map={bake2}
+            roughness={0.6}
+            metalness={0.4}
+            normalMap={normalMap2}
+            normalScale={new THREE.Vector2(2, 2)}
+          />
+          <Outlines thickness={1} color={0xfcc632} />
+        </mesh>
+      ))}
       <mesh geometry={nodes.bake2.geometry} receiveShadow>
         <meshStandardMaterial
           map={bake2}
@@ -138,11 +167,18 @@ export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
         receiveShadow
         material={wood}
       ></mesh>
-      <mesh
-        geometry={nodes.madeira.geometry}
-        receiveShadow
-        material={wood}
-      ></mesh>
+      <mesh geometry={nodes.madeira.geometry} receiveShadow material={wood}>
+        <lineSegments>
+          <edgesGeometry args={[nodes.madeira.geometry, 10]} />
+          <lineBasicMaterial color="black" />
+        </lineSegments>
+      </mesh>
+      <mesh geometry={nodes.balcao.geometry} material={wood} receiveShadow>
+        <lineSegments>
+          <edgesGeometry args={[nodes.balcao.geometry, 8]} />
+          <lineBasicMaterial color="black" />
+        </lineSegments>
+      </mesh>
       <mesh
         geometry={nodes.lampadas.geometry}
         receiveShadow
@@ -154,7 +190,6 @@ export default function Bakery({ setCameraSpawn, setPeopleViewCam }) {
         material={glassMaterial}
       ></mesh>
       <Smoke position={nodes.SmokeSpawn.position} />
-      {/* <Outlines thickness={1} color="black" /> */}
     </>
   );
 }
