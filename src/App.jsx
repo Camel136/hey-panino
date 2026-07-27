@@ -4,7 +4,6 @@ import Bakery from './components/bakery';
 // import { Perf } from 'r3f-perf';
 import PointerLockControlsCustom from './components/controls';
 import { useState, useContext } from 'react';
-import TouchSistem from './components/touchSistem';
 import * as THREE from 'three';
 import Target from './components/target';
 import { Context } from './components/context/context';

@@ -3,6 +3,7 @@ import { useEffect, useContext } from 'react';
 import * as THREE from 'three';
 import Smoke from '../smoke/Smoke';
 import { Context } from '../context/context';
+import PulseSistem from '../pulseSistem';
 
 // https://gltf.report/
 
@@ -16,6 +17,8 @@ export default function Bakery() {
   const normalMap3 = useTexture('./bake/normal/normalBake3.png');
 
   const { setPosCam } = useContext(Context);
+
+  console.log('...........', nodes);
 
   useEffect(() => {
     if (nodes.cameraSpawn) {
@@ -71,7 +74,7 @@ export default function Bakery() {
     metalness: 0.0,
     ior: 1.5,
     thickness: 0.6,
-    attenuationColor: new THREE.Color(0x88ccee),
+    attenuationColor: new THREE.Color(0xfca729),
     attenuationDistance: 0.5,
     envMapIntensity: 1.5,
   });
@@ -99,9 +102,8 @@ export default function Bakery() {
 
   return (
     <>
-      <ambientLight intensity={1.5} color={0xfcc632} />{' '}
+      <ambientLight intensity={1.5} color={0xfcc632} /> {/* #fc9732 */}
       <directionalLight position={[5, 8, 3]} intensity={2} />
-      {/* <color attach="background" args={['#ffe489']} /> */}
       <mesh geometry={nodes.bake1.geometry} receiveShadow>
         <meshStandardMaterial
           color="white"
@@ -122,7 +124,7 @@ export default function Bakery() {
             normalMap={normalMap2}
             normalScale={new THREE.Vector2(2, 2)}
           />
-          <Outlines thickness={1} color={0xfcc632} />
+          <PulseSistem />
         </mesh>
       ))}
       <mesh geometry={nodes.bake2.geometry} receiveShadow>
