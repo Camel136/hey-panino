@@ -9,10 +9,10 @@ function PulseSistem() {
 
   useFrame((_, delta) => {
     time.current += delta;
-    setThickness(1 + Math.sin(time.current * 2) * 0.5);
+    setThickness(1 + Math.sin(time.current * 5) * 0.5);
   });
 
-  return <Outlines thickness={thickness} color={0xfcc632} />;
+  return <Outlines thickness={thickness} color={0xfd0909} />;
 }
 
 export default PulseSistem;
