@@ -3,12 +3,13 @@ import { Canvas } from '@react-three/fiber';
 import Bakery from './components/bakery';
 // import { Perf } from 'r3f-perf';
 import PointerLockControlsCustom from './components/controls';
-import { useState, useContext } from 'react';
+import { useState, useContext, Suspense } from 'react';
 import * as THREE from 'three';
 import Target from './components/target';
 import { Context } from './components/context/context';
 
 import Modal from './components/modal';
+import Loader from './components/loader';
 
 // npm run lint -- --fix
 
@@ -24,9 +25,6 @@ function App() {
   };
 
   // 180/ deg = graus
-
-  const [insideOfTent, setInsideOfTent] = useState(false);
-  const [peopleViewCam, setPeopleViewCam] = useState(null);
 
   const { modalOpen, setModalOpen } = useContext(Context);
   if (modalOpen) {
@@ -53,7 +51,10 @@ function App() {
         >
           <>
             <PointerLockControlsCustom />
-            <Bakery />
+            <Loader />
+            <Suspense fallback={null}>
+              <Bakery />
+            </Suspense>
           </>
         </Canvas>
         <Modal open={modalOpen} onClose={() => setModalOpen(false)} />

@@ -67,3 +67,32 @@ html,
 canvas {
   background: linear-gradient(to bottom, #ff6f1b 5%, #ffd064 40%, #fff4d0 100%);
 }
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 18px 24px;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  min-width: 220px;
+}
+.loader-bar {
+  width: 200px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.loader-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffd064, #ff6f1b);
+  width: 0%;
+  transition: width 200ms linear;
+}
+.loader-text {
+  font-size: 12px;
+}

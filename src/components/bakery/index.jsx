@@ -116,7 +116,13 @@ export default function Bakery() {
         <Outlines thickness={1} color="black" />
       </mesh>
       {interactiveMeshes.map(name => (
-        <mesh geometry={nodes[name].geometry} receiveShadow>
+        <mesh
+          geometry={nodes[name].geometry}
+          onClick={() => {
+            console.log(nodes[name].name);
+          }}
+          receiveShadow
+        >
           <meshStandardMaterial
             map={bake2}
             roughness={0.6}
