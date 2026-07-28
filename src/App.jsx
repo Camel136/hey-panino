@@ -1,11 +1,8 @@
 import './App.css';
 import { Canvas } from '@react-three/fiber';
 import Bakery from './components/bakery';
-// import { Perf } from 'r3f-perf';
 import PointerLockControlsCustom from './components/controls';
-import { useState, useContext, Suspense } from 'react';
-import * as THREE from 'three';
-import Target from './components/target';
+import { useContext, Suspense } from 'react';
 import { Context } from './components/context/context';
 
 import Modal from './components/modal';

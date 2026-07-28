@@ -1,7 +1,6 @@
 import { PointerLockControls, OrbitControls } from '@react-three/drei';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
-import * as THREE from 'three';
 import { Context } from '../context/context';
 
 export default function PointerLockControlsCustom({}) {
