@@ -1,7 +1,4 @@
 import './index.css';
-import ThreeJs from '../pages/threeJS';
-import WebSite from '../pages/webSite';
-import App from '../pages/app';
 import { useContext } from 'react';
 import { Context } from '../context/context';
 
@@ -17,21 +14,21 @@ export default function Modal({ open, onClose }) {
 
   if (!open) return null;
 
-  function renderPage() {
-    switch (destiny) {
-      case 0:
-        return <ThreeJs />;
+  // function renderPage() {
+  //   switch (destiny) {
+  //     case 0:
+  //       return
 
-      case 1:
-        return <WebSite />;
+  //     case 1:
+  //       return
 
-      case 2:
-        return <App />;
+  //     case 2:
+  //       return
 
-      default:
-        return <p>Página não encontrada.</p>;
-    }
-  }
+  //     default:
+  //       return <p>Página não encontrada.</p>;
+  //   }
+  // }
 
   return (
     <div className="modal-overlay" role="dialog" aria-modal="true">
